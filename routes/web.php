@@ -18,7 +18,17 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $user = auth()->user();
+    if (!$user) {
+        return redirect()->route('login');
+    }
+    if ($user->role === \App\Models\User::ROLE_ADMIN) {
+        return redirect()->route('admin.dashboard');
+    }
+    if ($user->role === \App\Models\User::ROLE_STAFF) {
+        return redirect()->route('staff.dashboard');
+    }
+    return redirect()->route('tenant.dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 // Role-based dashboards and modules
