@@ -15,6 +15,45 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    @php($role = Auth::user()->role)
+                    @if($role === \App\Models\User::ROLE_ADMIN)
+                        <x-nav-link :href="route('admin.rooms.index')" :active="request()->routeIs('admin.rooms.*')">
+                            {{ __('Rooms') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.tenants.index')" :active="request()->routeIs('admin.tenants.*')">
+                            {{ __('Tenants') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.leases.index')" :active="request()->routeIs('admin.leases.*')">
+                            {{ __('Leases') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.billing.invoices.index')" :active="request()->routeIs('admin.billing.*')">
+                            {{ __('Billing') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.bookings.index')" :active="request()->routeIs('admin.bookings.*')">
+                            {{ __('Bookings') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.maintenance.index')" :active="request()->routeIs('admin.maintenance.*')">
+                            {{ __('Maintenance') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.reports.index')" :active="request()->routeIs('admin.reports.*')">
+                            {{ __('Reports') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.settings.*')">
+                            {{ __('Settings') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
+                            {{ __('Users') }}
+                        </x-nav-link>
+                    @elseif($role === \App\Models\User::ROLE_TENANT)
+                        <x-nav-link :href="route('tenant.dashboard')" :active="request()->routeIs('tenant.*')">
+                            {{ __('Tenant Portal') }}
+                        </x-nav-link>
+                    @elseif($role === \App\Models\User::ROLE_STAFF)
+                        <x-nav-link :href="route('staff.dashboard')" :active="request()->routeIs('staff.*')">
+                            {{ __('Staff Portal') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -66,6 +105,22 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @php($role = Auth::user()->role)
+            @if($role === \App\Models\User::ROLE_ADMIN)
+                <x-responsive-nav-link :href="route('admin.rooms.index')" :active="request()->routeIs('admin.rooms.*')">{{ __('Rooms') }}</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.tenants.index')" :active="request()->routeIs('admin.tenants.*')">{{ __('Tenants') }}</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.leases.index')" :active="request()->routeIs('admin.leases.*')">{{ __('Leases') }}</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.billing.invoices.index')" :active="request()->routeIs('admin.billing.*')">{{ __('Billing') }}</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.bookings.index')" :active="request()->routeIs('admin.bookings.*')">{{ __('Bookings') }}</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.maintenance.index')" :active="request()->routeIs('admin.maintenance.*')">{{ __('Maintenance') }}</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.reports.index')" :active="request()->routeIs('admin.reports.*')">{{ __('Reports') }}</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.settings.*')">{{ __('Settings') }}</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">{{ __('Users') }}</x-responsive-nav-link>
+            @elseif($role === \App\Models\User::ROLE_TENANT)
+                <x-responsive-nav-link :href="route('tenant.dashboard')" :active="request()->routeIs('tenant.*')">{{ __('Tenant Portal') }}</x-responsive-nav-link>
+            @elseif($role === \App\Models\User::ROLE_STAFF)
+                <x-responsive-nav-link :href="route('staff.dashboard')" :active="request()->routeIs('staff.*')">{{ __('Staff Portal') }}</x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
